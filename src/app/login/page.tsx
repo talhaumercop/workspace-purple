@@ -1,7 +1,10 @@
 import { DesktopObject } from '@/components/desktop-object';
+import { WorldEntry } from '@/components/world-entry';
 import Link from 'next/link';
 import { currentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/app/actions';
-import { Blocks } from 'lucide-react';
-export default async function Login() { if (await currentUser()) redirect('/'); return <div className="auth-layout"><div className="auth-art"><div className="auth-brand"><Blocks size={24}/> workspace<span>manager</span></div><div className="auth-quote"><span>✦</span><h1>Make room for<br/>better work.</h1><p>Projects, tasks, and people together in one calm space.</p></div><div className="art-card art-one">Plan the work <span>● ● ●</span></div><div className="art-card art-two">Move it forward <span>↗</span></div></div><div className="auth-side"><div className="auth-form-wrap"><div className="eyebrow">WELCOME BACK</div><h2>Sign in to your workspace</h2><p>Pick up right where your team left off.</p><form action={signIn} className="auth-form"><label>Email address<input type="email" name="email" placeholder="you@example.com" required/></label><label>Password<input type="password" name="password" placeholder="Enter your password" required/></label><button className="button primary full"><DesktopObject kind="key"/><span className="desktop-caption">Sign in</span></button></form><div className="auth-switch">New here? <Link href="/signup">Create an account</Link></div></div></div></div>; }
+export default async function Page() {
+ if (await currentUser()) redirect('/');
+ return <WorldEntry signup={false}><div className="auth-form-wrap"><div className="eyebrow">SIGN IN TO YOUR WORKSPACE</div><h2>WELCOME BACK.</h2><p>Your world is right where you left it.</p><form action={signIn} className="auth-form"><label>Email address<input type="email" name="email" placeholder="you@example.com" required/></label><label>Password<input type="password" name="password" placeholder="Enter your password" required/></label><button className="button primary full"><DesktopObject kind="key"/><span className="desktop-caption">Sign in</span></button></form><div className="auth-switch">New here? <Link href="/signup">Create an account</Link></div></div></WorldEntry>;
+}
